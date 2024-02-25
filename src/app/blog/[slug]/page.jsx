@@ -5,7 +5,8 @@ import PostUser from "@/components/postUser/PostUser";
 import {getPost} from "@/lib/data";
 
 const getData = async (id) => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+  console.log("caliing api")
+  const res = await fetch(`http://localhost:3000/api/blog/${id}`, {cache: "no-store"});
 
   if(!res.ok) {
     throw new Error("Something went wrong");
@@ -15,7 +16,9 @@ const getData = async (id) => {
 }
 
 const SinglePostPage = async ({params}) => {
-  const post = await getPost(params.slug);
+  const post = await getData(params.slug);
+
+  console.log('post', post)
 
   return (
     <div className={styles.container}>
@@ -35,7 +38,7 @@ const SinglePostPage = async ({params}) => {
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>Published</span>
             <span className={styles.detailValue}>
-              {(post.createdAt || new Date()).toString().slice(4, 16)}
+              {(post.createdAt || new Date()).toString().slice(0, 10)}
             </span>
           </div>
         </div>

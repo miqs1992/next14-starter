@@ -3,7 +3,7 @@ import PostCard from "@/components/postCard/PostCard";
 import {getPosts} from "@/lib/data";
 
 const getData = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts", {cache: "no-store"});
+  const res = await fetch("http://localhost:3000/api/blog", {cache: "no-store"});
 
   if(!res.ok) {
     throw new Error("Something went wrong");
@@ -13,14 +13,7 @@ const getData = async () => {
 }
 
 const BlogPage = async () => {
-  // const posts = [
-  //   { id: 1, title: "Post 1", body: "Lorem ipsum statatata", userId: 1, createdAt: new Date(), img: "/about.png"},
-  //   { id: 2, title: "Post 2", body: "......", userId: 1, createdAt: new Date(), img: "/about.png" },
-  //   { id: 3, title: "Post 3", body: "......", userId: 2, createdAt: new Date(), img: "/about.png" },
-  //   { id: 4, title: "Post 4", body: "......", userId: 2, createdAt: new Date(), img: "/about.png"},
-  // ];
-
-  const posts = await getPosts();
+  const posts = await getData();
 
   return (
     <div className={styles.container}>
