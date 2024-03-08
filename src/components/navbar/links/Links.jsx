@@ -2,9 +2,12 @@
 import styles from './links.module.css';
 import NavLink from "@/components/navbar/links/navLink/navLink";
 import {useState} from "react";
+import {handleGithubLogout} from "@/lib/actions";
 
-const Links = () => {
+const Links = ({session}) => {
 	const [open, setOpen] = useState(false);
+
+	console.log(session);
 
 	const links = [
 		{
@@ -25,9 +28,6 @@ const Links = () => {
 		},
 	]
 
-	const session = true;
-	const isAdmin = true;
-
 	return (
 		<div className={styles.container}>
 			<div className={styles.links}>
@@ -36,8 +36,11 @@ const Links = () => {
 				))}
 				{session ? (
 					<>
-						{isAdmin && <NavLink item={{to: '/admin', label: 'Admin'}}/>}
-						<button className={styles.logout}>Logout</button>
+						{session.user?.isAdmin && <NavLink item={{to: '/admin', label: 'Admin'}}/>}
+						<form action={handleGithubLogout}>
+							<button className={styles.logout}>Logout</button>
+						</form>
+
 					</>
 				) : <NavLink item={{to: '/login', label: 'Login'}}/>}
 			</div>

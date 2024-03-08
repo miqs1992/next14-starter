@@ -2,6 +2,7 @@
 import {connectToDb} from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 import {Post} from "@/lib/models";
+import {signIn, signOut} from "@/lib/auth";
 
 export const addPost = async (prevState,formData) => {
 	// const title = formData.get("title");
@@ -11,7 +12,7 @@ export const addPost = async (prevState,formData) => {
 	const { title, desc, slug, userId } = Object.fromEntries(formData);
 
 	try {
-		connectToDb();
+		await connectToDb();
 		const newPost = new Post({
 			title,
 			desc,
@@ -33,7 +34,7 @@ export const deletePost = async (formData) => {
 	const { id } = Object.fromEntries(formData);
 
 	try {
-		connectToDb();
+		await connectToDb();
 
 		await Post.findByIdAndDelete(id);
 		console.log("deleted from db");
@@ -44,3 +45,11 @@ export const deletePost = async (formData) => {
 		return { error: "Something went wrong!" };
 	}
 };
+
+export const handleGithubLogin = async () => {
+	await signIn("github");
+}
+
+export const handleGithubLogout = async () => {
+	await signOut();
+}
