@@ -7,8 +7,6 @@ import {handleGithubLogout} from "@/lib/actions";
 const Links = ({session}) => {
 	const [open, setOpen] = useState(false);
 
-	console.log(session);
-
 	const links = [
 		{
 			to: '/',

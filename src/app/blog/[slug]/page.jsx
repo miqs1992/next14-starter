@@ -18,8 +18,6 @@ const getData = async (id) => {
 const SinglePostPage = async ({params}) => {
   const post = await getData(params.slug);
 
-  console.log('post', post)
-
   return (
     <div className={styles.container}>
       {post.img && (
